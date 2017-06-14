@@ -1,13 +1,10 @@
 ---
 platform: linux
 
-outputs:
-- name: output-1-1
-
 image_resource: {type: docker-image, source: {repository: alpine}}
 
 run:
   path: sh
   args:
   - -xc
-  - "date; hostname; echo hello to you; date>output-1-1/date"
+  - "echo THIS IS RUN EVERY TIME"

@@ -1,13 +1,10 @@
 ---
 platform: linux
 
-outputs:
-- name: output-2a
-
 image_resource: {type: docker-image, source: {repository: alpine}}
 
 run:
   path: sh
   args:
   - -xc
-  - "date; hostname; echo hello to you; date>output-2a/date"
+  - "echo THIS IS A DESTRUCTIVE OPERATION"
