@@ -6,4 +6,5 @@ outputs:
 
 run:
   path: /bin/bash
-  args: "date; hostname; echo hello; date>output-1-1/date"
+  args: 
+  - "date; hostname; echo hello; date>output-1-1/date"
