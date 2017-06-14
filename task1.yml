@@ -9,6 +9,7 @@ image_resource:
   source: {repository: alpine, tag: latest}
 
 run:
-  path: /bin/bash
-  args: 
+  path: sh
+  args:
+  - -xc
   - "date; hostname; echo hello; date>output-1-1/date"
