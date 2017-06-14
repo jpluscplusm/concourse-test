@@ -12,4 +12,4 @@ run:
   path: sh
   args:
   - -xc
-  - "date; hostname; echo hello; date>output-1-1/date"
+  - "date; hostname; echo hello to you; date>output-1-1/date"
