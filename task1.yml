@@ -7,4 +7,4 @@ run:
   path: sh
   args:
   - -xc
-  - "echo THIS IS RUN EVERY TIME: ${FOO}"
+  - "echo THIS IS RUN EVERY TIME: ${FOO:-wibble}"
