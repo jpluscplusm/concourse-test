@@ -1,6 +1,6 @@
 ---
 resources:
-- name: repo-get
+- name: repo-input
   type: git
   source: &git-source
     uri: git@github.com:jpluscplusm/concourse-test.git
@@ -9,19 +9,24 @@ resources:
     ignore_paths:
     - result/*
 
-- name: repo-put
+- name: repo-result
   type: git
   source:
     <<: *git-source
     paths:
     - result/*
 
+- name: repo-put
+  type: git
+  source:
+    <<: *git-source
+
 jobs:
 
 - name: change-repo
   plan:
   - get: repo
-    resource: repo-get
+    resource: repo-input
     trigger: true
   - task: change-file
     file: repo/change-file.yml
@@ -32,7 +37,7 @@ jobs:
   plan:
   - get: repo
     trigger: true
-    resource: repo-put
+    resource: repo-result
   - task: report-file
     file: repo/report-file.yml
 
