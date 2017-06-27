@@ -1,27 +1,31 @@
 ---
 resources:
-- name: repo-input
+
+- name: config-dummy-git-resource
   type: git
-  source: &git-source
+  check_every: 65535h # because "never" isn't valid ...
+  source: &config-resource
     uri: git@github.com:jpluscplusm/concourse-test.git
     branch: master
     private_key: {{privkey}}
-    ignore_paths:
-    - result/*
 
-- name: repo-result
+- name: config-hydrated
   type: git
   source:
-    <<: *git-source
-    ignore_paths:
-    paths:
-    - result/*
+    <<: *config-resource
+    paths: [ result/* ]
 
-- name: repo-putonly
+- name: config-template
   type: git
   source:
-    <<: *git-source
-    ignore_paths:
+    <<: *config-resource
+    ignore_paths: [ result/* ]
+
+groups:
+- name: default
+  jobs: 
+  - change-repo
+  - consume-result
 
 jobs:
 
@@ -29,7 +33,7 @@ jobs:
   plan:
 
   - get: repo
-    resource: repo-input
+    resource: config-template
     trigger: true
 
   - task: change-file
@@ -55,14 +59,21 @@ jobs:
       GIT_COMMIT_NAME: "Jonathan Matthews"
       GIT_COMMIT_MESSAGE: "Commit inside CI"
 
-  - put: repo-putonly
-    params: {repository: dir-with-commit}
+    on_failure:
+    on_success:
+      put: config-hydrated
+      params: {repository: dir-with-commit}
 
 - name: consume-result
   plan:
   - get: repo
     trigger: true
-    resource: repo-result
+    resource: config-hydrated
+    passed: [change-repo]
   - task: report-file
     file: repo/report-file.yml
+
+- name: dummy-resource-consumer
+  plan:
+  - get: config-dummy-git-resource
 
