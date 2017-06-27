@@ -2,8 +2,7 @@
 
 set -x
 
-rm -rf repo-changed
-cp -priv repo repo-changed
+cp -Rp repo/. repo-changed/
 
 cd repo-changed
 git add result/date
