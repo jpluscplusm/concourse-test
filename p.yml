@@ -1,0 +1,38 @@
+---
+resources:
+- name: repo-get
+  type: git
+  source: &git-source
+    uri: git@github.com:jpluscplusm/concourse-test.git
+    branch: master
+    private_key: {{privkey}}
+    ignore_paths:
+    - result/*
+
+- name: repo-put
+  type: git
+  source:
+    <<: *git-source
+    paths:
+    - result/*
+
+jobs:
+
+- name: change-repo
+  plan:
+  - get: repo
+    resource: repo-get
+    trigger: true
+  - task: change-file
+    file: repo/change-file.yml
+  - put: repo-put
+    params: {repository: repo}
+
+- name: consume-result
+  plan:
+  - get: repo
+    trigger: true
+    resource: repo-put
+  - task: report-file
+    file: repo/report-file.yml
+
