@@ -17,11 +17,6 @@ resources:
     paths:
     - result/*
 
-- name: repo-put
-  type: git
-  source:
-    <<: *git-source
-
 jobs:
 
 - name: change-repo
@@ -41,7 +36,7 @@ jobs:
       GIT_COMMIT_EMAIL: "contact@jpluscplusm.com"
       GIT_COMMIT_NAME: "Jonathan Matthews"
       GIT_COMMIT_MESSAGE: "Commit inside CI"
-  - put: repo-put
+  - put: repo-result
     params: {repository: git-commit-output}
 
 - name: consume-result
@@ -49,6 +44,7 @@ jobs:
   - get: repo
     trigger: true
     resource: repo-result
+    passed: [change-repo]
   - task: report-file
     file: repo/report-file.yml
 
