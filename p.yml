@@ -44,7 +44,7 @@ jobs:
     input_mapping: {this: repo, input1: repo, input2: changed}
     output_mapping: {output: combined-input}
     params:
-      INPUT_FILES: "in1/date:result/date in1/date:result/testofnewfile"
+      INPUT_FILES: "input2/date:result/date input2/date:result/testofnewfile"
 
   - try:
 
@@ -72,4 +72,3 @@ jobs:
 - name: dummy-resource-consumer
   plan:
   - get: config-dummy-git-resource
-
