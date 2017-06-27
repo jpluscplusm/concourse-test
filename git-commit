@@ -2,7 +2,7 @@
 [ "$VERBOSE" ] && set -x
 set -uo pipefail
 
-git clone ./input ./output
+cp -R ./input/. ./output
 
 cd output
 git config user.email "${GIT_COMMIT_EMAIL}"
