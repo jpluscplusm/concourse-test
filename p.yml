@@ -13,6 +13,7 @@ resources:
   type: git
   source:
     <<: *git-source
+    ignore_paths:
     paths:
     - result/*
 
