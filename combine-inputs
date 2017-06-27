@@ -2,10 +2,10 @@
 [ "$VERBOSE" ] && set -x
 set -uo pipefail
 
-if git -C input1 rev-parse &>/dev/null; then
-  git clone ./input1 ./output
+if git -C clone rev-parse &>/dev/null; then
+  git clone ./clone ./output
 else
-  cp -R input1/. output/
+  cp -R clone/. output/
 fi
 
 for FILE in ${INPUT_FILES}; do

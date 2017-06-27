@@ -40,8 +40,8 @@ jobs:
     file: repo/change-file.yml
 
   - task: combine-inputs
-    file: repo/combine-2-inputs.yml
-    input_mapping: {this: repo, input1: repo, input2: changed}
+    file: repo/combine-inputs.yml
+    input_mapping: {this: repo, clone: repo, input1: changed, input2: changed}
     output_mapping: {output: combined-input}
     params:
       INPUT_FILES: "input2/date:result/date input2/date:result/testofnewfile"
