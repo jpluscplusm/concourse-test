@@ -50,19 +50,19 @@ jobs:
     params:
       INPUT_FILES: "in1/date:result/date in1/date:result/testofnewfile"
 
-  - task: git-commit
-    file: repo/git-commit.yml
-    input_mapping:  {script: repo, input: combined-input}
-    output_mapping: {output: dir-with-commit}
-    params:
-      GIT_COMMIT_EMAIL: "contact@jpluscplusm.com"
-      GIT_COMMIT_NAME: "Jonathan Matthews"
-      GIT_COMMIT_MESSAGE: "Commit inside CI"
+  - try:
 
-    on_failure:
-    on_success:
-      put: config-hydrated
-      params: {repository: dir-with-commit}
+      task: git-commit
+      file: repo/git-commit.yml
+      input_mapping:  {script: repo, input: combined-input}
+      output_mapping: {output: dir-with-commit}
+      params:
+        GIT_COMMIT_EMAIL: "contact@jpluscplusm.com"
+        GIT_COMMIT_NAME: "Jonathan Matthews"
+        GIT_COMMIT_MESSAGE: "Commit inside CI"
+      on_success:
+        put: config-hydrated
+        params: {repository: dir-with-commit}
 
 - name: consume-result
   plan:
