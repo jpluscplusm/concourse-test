@@ -8,4 +8,4 @@ cd output
 git config user.email "${GIT_COMMIT_EMAIL}"
 git config user.name  "${GIT_COMMIT_NAME}"
 git add .
-git commit -m "${GIT_COMMIT_MESSAGE}" || false
+git commit -m "${GIT_COMMIT_MESSAGE}" || true
