@@ -2,21 +2,10 @@
 [ "$VERBOSE" ] && set -x
 set -uo pipefail
 
-git clone ./repository ./git-commit-output
+git clone ./input ./output
 
-for FILE in ${GIT_COMMIT_FILES}; do
-  SOURCE="${FILE/:*/}"
-  TARGET="${FILE/*:/}"
-  cp -prv "${SOURCE}" "git-commit-output/${TARGET}"
-done
-
-cd git-commit-output
-
+cd output
 git config user.email "${GIT_COMMIT_EMAIL}"
 git config user.name  "${GIT_COMMIT_NAME}"
-for FILE in $GIT_COMMIT_FILES; do
-  TARGET="${FILE/*:/}"
-  git add "${TARGET}"
-done
-
+git add .
 git commit -m "${GIT_COMMIT_MESSAGE}" || false

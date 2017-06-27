@@ -1,0 +1,15 @@
+#!/bin/bash
+[ "$VERBOSE" ] && set -x
+set -uo pipefail
+
+if git -C basedir rev-parse &>/dev/null; then
+  git clone ./basedir ./output
+else
+  cp -R basedir/. output/
+fi
+
+for FILE in ${INPUT_FILES}; do
+  SOURCE="${FILE/:*/}"
+  TARGET="${FILE/*:/}"
+  cp -prv "${SOURCE}" "output/${TARGET}"
+done

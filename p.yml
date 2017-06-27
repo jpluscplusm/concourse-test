@@ -21,23 +21,36 @@ jobs:
 
 - name: change-repo
   plan:
+
   - get: repo
     resource: repo-input
     trigger: true
+
   - task: change-file
     file: repo/change-file.yml
+
   - task: create-empty-directory
     file: repo/empty-directory.yml
+    output_mapping: {output: empty}
+
+  - task combine-inputs
+    file: repo/combine-inputs.yml
+    input_mapping: {script: repo, basedir: repo, in1: changed, in2: empty, in3: empty, in4: empty, in5: empty, in6: empty, in7: empty, in8: empty, in9: empty}
+    output_mapping: {output: combined-input}
+    params:
+      INPUT_FILES: "in1/date:result/date in1/date:result/testofnewfile"
+
   - task: git-commit
     file: repo/git-commit.yml
-    input_mapping: {task: repo, repository: repo, in1: changed, in2: empty, in3: empty, in4: empty, in5: empty, in6: empty, in7: empty, in8: empty, in9: empty}
+    input_mapping:  {script: repo, input: combined-input}
+    output_mapping: {output: dir-with-commit}
     params:
-      GIT_COMMIT_FILES: "in1/date:result/date in1/date:result/testofnewfile"
       GIT_COMMIT_EMAIL: "contact@jpluscplusm.com"
       GIT_COMMIT_NAME: "Jonathan Matthews"
       GIT_COMMIT_MESSAGE: "Commit inside CI"
+
   - put: repo-result
-    params: {repository: git-commit-output}
+    params: {repository: dir-with-commit}
 
 - name: consume-result
   plan:
