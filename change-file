@@ -4,4 +4,4 @@ set -x
 
 [ "$(( ( RANDOM % 10 )  + 1 ))" -gt 5 ] && {
   date >> repo/result/date
-}
+} || true
