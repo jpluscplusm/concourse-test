@@ -1,6 +1,6 @@
 #!/bin/bash
-
-set -x
+[ "$VERBOSE" ] && set -x
+set -uo pipefail
 
 git clone ./repository ./git-commit-output
 
@@ -19,4 +19,4 @@ for FILE in "$GIT_COMMIT_FILES"; do
   git add "${TARGET}"
 done
 
-git commit -m "${GIT_COMMIT_MESSAGE}"
+git commit -m "${GIT_COMMIT_MESSAGE}" || false
