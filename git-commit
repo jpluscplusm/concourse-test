@@ -2,12 +2,12 @@
 
 set -x
 
-git clone git-commit-repo git-commit-output
+git clone ./git-commit-repo ./git-commit-output
 
 for FILE in "${GIT_COMMIT_FILES}"; do
   SOURCE="${FILE/:*/}"
   TARGET="${FILE/*:/}"
-  cp -priv "${SOURCE}" "git-commit-output/${TARGET}"
+  cp -prv "${SOURCE}" "git-commit-output/${TARGET}"
 done
 
 cd git-commit-output
