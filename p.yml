@@ -31,7 +31,7 @@ jobs:
   - task: change-file
     file: repo/change-file.yml
   - task: create-empty-directory
-    file: repo/empty-directory
+    file: repo/empty-directory.yml
   - task: git-commit
     file: repo/git-commit.yml
     input_mapping: {task: repo, git-commit-repo: repo, in1: changed, in2: empty, in3: empty, in4: empty, in5: empty, in6: empty, in7: empty, in8: empty, in9: empty}
