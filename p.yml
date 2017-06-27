@@ -34,7 +34,7 @@ jobs:
     file: repo/empty-directory.yml
   - task: git-commit
     file: repo/git-commit.yml
-    input_mapping: {task: repo, git-commit-repo: repo, in1: changed, in2: empty, in3: empty, in4: empty, in5: empty, in6: empty, in7: empty, in8: empty, in9: empty}
+    input_mapping: {task: repo, repository: repo, in1: changed, in2: empty, in3: empty, in4: empty, in5: empty, in6: empty, in7: empty, in8: empty, in9: empty}
     params:
       GIT_COMMIT_FILES: "in1/date:result/date"
       GIT_COMMIT_EMAIL: "contact@jpluscplusm.com"

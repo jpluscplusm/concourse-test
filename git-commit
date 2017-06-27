@@ -2,7 +2,7 @@
 
 set -x
 
-git clone ./git-commit-repo ./git-commit-output
+git clone ./repository ./git-commit-output
 
 for FILE in "${GIT_COMMIT_FILES}"; do
   SOURCE="${FILE/:*/}"

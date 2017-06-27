@@ -5,6 +5,7 @@ image_resource: {type: docker-image, source: {repository: bravissimolabs/alpine-
 
 inputs:
 - name: task
+- name: repository
 - name: in1
 - name: in2
 - name: in3
@@ -19,4 +20,4 @@ outputs:
 - name: git-commit-output
 
 run:
-  path: task/git-commit
+  path: this-task/git-commit
