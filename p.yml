@@ -1,18 +1,13 @@
 ---
 resources:
 
-- name: config-dummy-git-resource
-  type: git
-  check_every: 65535h # because "never" isn't valid ...
-  source: &config-resource
-    uri: git@github.com:jpluscplusm/concourse-test.git
-    branch: master
-    private_key: {{privkey}}
-
 - name: config-hydrated
   type: git
   source:
-    <<: *config-resource
+    <<: &config-resource
+      uri: git@github.com:jpluscplusm/concourse-test.git
+      branch: master
+      private_key: {{privkey}}
     paths: [ result/* ]
 
 - name: config-template
@@ -20,12 +15,6 @@ resources:
   source:
     <<: *config-resource
     ignore_paths: [ result/* ]
-
-groups:
-- name: default
-  jobs: 
-  - change-repo
-  - consume-result
 
 jobs:
 
@@ -68,7 +57,3 @@ jobs:
     passed: [change-repo]
   - task: report-file
     file: repo/report-file.yml
-
-- name: dummy-resource-consumer
-  plan:
-  - get: config-dummy-git-resource
