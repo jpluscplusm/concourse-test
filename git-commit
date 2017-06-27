@@ -2,6 +2,9 @@
 
 set -x
 
-cd repo
+rm -rf repo-changed
+cp -priv repo repo-changed
+
+cd repo-changed
 git add result/date
 git commit -m "CI commit @ $(date)"
