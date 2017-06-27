@@ -20,4 +20,4 @@ outputs:
 - name: git-commit-output
 
 run:
-  path: this-task/git-commit
+  path: task/git-commit
