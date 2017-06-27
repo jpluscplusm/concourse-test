@@ -7,4 +7,5 @@ outputs:
 - name: empty
 
 run:
-  path: /usr/bin/true
+  path: sh
+  args: [ "-c", "true" ]
