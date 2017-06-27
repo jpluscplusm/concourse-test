@@ -2,6 +2,8 @@
 
 set -x
 
+cp repo/result/date changed/date
+
 [ "$(( ( RANDOM % 10 )  + 1 ))" -gt 5 ] && {
-  date >> repo/result/date
+  date >> changed/date
 } || true

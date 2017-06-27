@@ -30,10 +30,18 @@ jobs:
     trigger: true
   - task: change-file
     file: repo/change-file.yml
+  - task: create-empty-directory
+    file: repo/empty-directory
   - task: git-commit
     file: repo/git-commit.yml
+    input_mapping: {in1: changed, in2: empty, in3: empty, in4: empty, in5: empty, in6: empty, in7: empty, in8: empty, in9: empty}
+    params:
+      GIT_COMMIT_FILES: "in1/date:result/date"
+      GIT_COMMIT_EMAIL: "contact@jpluscplusm.com"
+      GIT_COMMIT_NAME: "Jonathan Matthews"
+      GIT_COMMIT_MESSAGE: "Commit inside CI"
   - put: repo-put
-    params: {repository: repo}
+    params: {repository: git-commit-output}
 
 - name: consume-result
   plan:

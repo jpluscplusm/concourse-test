@@ -4,10 +4,19 @@ platform: linux
 image_resource: {type: docker-image, source: {repository: bravissimolabs/alpine-git}}
 
 inputs:
-- name: repo
+- name: task
+- name: in1
+- name: in2
+- name: in3
+- name: in4
+- name: in5
+- name: in6
+- name: in7
+- name: in8
+- name: in9
 
 outputs:
-- name: repo-changed
+- name: git-commit-output
 
 run:
-  path: repo/git-commit
+  path: task/git-commit

@@ -2,11 +2,21 @@
 
 set -x
 
-cp -Rp repo/. repo-changed/
+git clone git-commit-repo git-commit-output
 
-cd repo-changed
-git config user.email "CI@yermum.com"
-git config user.name "Inty McContinuous"
+for FILE in "${GIT_COMMIT_FILES}"; do
+  SOURCE="${FILE/:*/}"
+  TARGET="${FILE/*:/}"
+  cp -priv "${SOURCE}" "git-commit-output/${TARGET}"
+done
 
-git add result/date
-git commit -m "CI commit @ $(date)"
+cd git-commit-output
+
+git config user.email "${GIT_COMMIT_EMAIL}"
+git config user.name  "${GIT_COMMIT_NAME}"
+for FILE in "$GIT_COMMIT_FILES"; do
+  TARGET="${FILE/*:/}"
+  git add "${TARGET}"
+done
+
+git commit -m "${GIT_COMMIT_MESSAGE}"
