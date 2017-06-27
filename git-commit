@@ -5,5 +5,8 @@ set -x
 cp -Rp repo/. repo-changed/
 
 cd repo-changed
+git config user.email "CI@yermum.com"
+git config user.name "Inty McContinuous"
+
 git add result/date
 git commit -m "CI commit @ $(date)"
