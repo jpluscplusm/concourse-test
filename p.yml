@@ -17,6 +17,12 @@ resources:
     paths:
     - result/*
 
+- name: repo-putonly
+  type: git
+  source:
+    <<: *git-source
+    ignore_paths:
+
 jobs:
 
 - name: change-repo
@@ -33,7 +39,7 @@ jobs:
     file: repo/empty-directory.yml
     output_mapping: {output: empty}
 
-  - task combine-inputs
+  - task: combine-inputs
     file: repo/combine-inputs.yml
     input_mapping: {script: repo, basedir: repo, in1: changed, in2: empty, in3: empty, in4: empty, in5: empty, in6: empty, in7: empty, in8: empty, in9: empty}
     output_mapping: {output: combined-input}
@@ -49,7 +55,7 @@ jobs:
       GIT_COMMIT_NAME: "Jonathan Matthews"
       GIT_COMMIT_MESSAGE: "Commit inside CI"
 
-  - put: repo-result
+  - put: repo-putonly
     params: {repository: dir-with-commit}
 
 - name: consume-result
@@ -57,7 +63,6 @@ jobs:
   - get: repo
     trigger: true
     resource: repo-result
-    passed: [change-repo]
   - task: report-file
     file: repo/report-file.yml
 
