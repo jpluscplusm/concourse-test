@@ -5,10 +5,11 @@ image_resource: {type: docker-image, source: {repository: bravissimolabs/alpine-
 
 inputs:
 - name: this
-- name: input
+- name: input1
+- name: input2
 
 outputs:
 - name: output
 
 run:
-  path: this/git-commit
+  path: this/combine-2-inputs
